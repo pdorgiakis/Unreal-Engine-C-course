@@ -2,6 +2,7 @@
 
 
 #include "MovingPlatform.h"
+#include "Math/MathFwd.h"
 
 // Sets default values
 AMovingPlatform::AMovingPlatform()
@@ -16,8 +17,7 @@ void AMovingPlatform::BeginPlay()
 {
 	Super::BeginPlay();
 
-  UE_LOG(LogTemp, Display, TEXT("MovingPlatform Initialized"));
-	
+  start_location = GetActorLocation();
 }
 
 // Called every frame
@@ -25,4 +25,20 @@ void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+  MovePlatform(DeltaTime);
+}
+
+void AMovingPlatform::MovePlatform(float DeltaTime)
+{
+  FVector loc_vector = GetActorLocation();
+
+  loc_vector = loc_vector + velocity * DeltaTime * direction;
+  SetActorLocation(loc_vector);
+
+  float moving_distance = FVector::Dist(loc_vector, start_location);
+
+  if (moving_distance >= max_distance) {
+    direction = direction * -1;
+    start_location = GetActorLocation();
+  }
 }
