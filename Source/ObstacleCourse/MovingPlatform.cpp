@@ -32,13 +32,18 @@ void AMovingPlatform::MovePlatform(float DeltaTime)
 {
   FVector loc_vector = GetActorLocation();
 
-  loc_vector = loc_vector + velocity * DeltaTime * direction;
+  loc_vector = loc_vector + velocity * DeltaTime;
   SetActorLocation(loc_vector);
 
   float moving_distance = FVector::Dist(loc_vector, start_location);
 
   if (moving_distance >= max_distance) {
-    direction = direction * -1;
-    start_location = GetActorLocation();
+    FVector move_direction = velocity.GetSafeNormal();
+    FVector new_start_location = start_location + move_direction * moving_distance;
+    SetActorLocation(new_start_location);
+    start_location = new_start_location;
+
+    velocity = -velocity;
   }
 }
+

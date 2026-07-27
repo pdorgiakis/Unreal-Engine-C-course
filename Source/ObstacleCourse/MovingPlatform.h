@@ -27,23 +27,22 @@ public:
 
   // Base Attributes
   FString prefix = "MovingPlatform -";
-  
-  // Moving the platform
-  void MovePlatform(float DeltaTime);
-
-  // Rotate the platform
-  void RotatePlatform(float DeltaTime);
-
-  FVector start_location;
-
   float direction = 1.0f;
 
+  // Member functions
+  void MovePlatform(float DeltaTime);
+
+  // Properties
+  FVector start_location;
+
+ 
+  // UI Properties
   UPROPERTY(EditAnywhere)
   float max_distance = 1000;
 
   UPROPERTY(EditAnywhere)
   float movement_speed = 5.0f;
-  
+ 
   UPROPERTY(EditAnywhere)
   FVector velocity = FVector(0.0f, 0.0f, 0.0f);
 
