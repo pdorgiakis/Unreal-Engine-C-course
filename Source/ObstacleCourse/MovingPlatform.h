@@ -31,6 +31,7 @@ public:
 
   // Member functions
   void MovePlatform(float DeltaTime);
+  void RotatePlatform(float DeltaTime);
 
   // Properties
   FVector start_location;
@@ -47,5 +48,5 @@ public:
   FVector velocity = FVector(0.0f, 0.0f, 0.0f);
 
   UPROPERTY(EditAnywhere)
-  FVector r_velocity = FVector(0.0f, 0.0f, 0.0f);
+  FRotator r_velocity;
 };
